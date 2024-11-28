@@ -16,11 +16,14 @@ app.get('/', (req, res) => {
   res.json({ data: "test" });
 });
 
-// Meeting list route
+// Meeting
 app.get('/meeting/list', (req, res) => {
+  console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
+
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/M2411170001`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/list`, { httpsAgent: agent })
     .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
     })
     .catch((error) => {
@@ -29,14 +32,48 @@ app.get('/meeting/list', (req, res) => {
     });
 });
 
-// Meeting members route
-app.post('/meeting/members/:meeting_id', (req, res) => {
+app.get('/meeting/get/:meeting_id_or_code', (req, res) => {
+  const { meeting_id_or_code } = req.params;
+
+  axios
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get/${meeting_id_or_code}`, { httpsAgent: agent })
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+app.get('/meeting/members/:meeting_id', (req, res) => {
   const { meeting_id } = req.params;
-  console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
 
   axios
     .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/${meeting_id}`, { httpsAgent: agent })
     .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+app.post('/meeting/presence', (req, res) => {
+  axios
+    .post(
+      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/${meeting_id}`,
+      JSON.stringify(req.params),
+      { 
+        httpsAgent: agent,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
     })
     .catch((error) => {
