@@ -11,12 +11,10 @@ const agent = new https.Agent({
   rejectUnauthorized: false,
 });
 
-// Root route
 app.get('/', (req, res) => {
   res.json({ data: "test" });
 });
 
-// Meeting list route
 app.get('/meeting/list', (req, res) => {
   axios
     .get('http://localhost/meeting-presence/api/meeting/members/M2411170001', { httpsAgent: agent })
@@ -29,7 +27,6 @@ app.get('/meeting/list', (req, res) => {
     });
 });
 
-// Meeting members route
 app.post('/meeting/members/:meeting_id', (req, res) => {
   const { meeting_id } = req.params;
   console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
