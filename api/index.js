@@ -68,7 +68,7 @@ app.post('/meeting/presence', (req, res) => {
   axios
     .post(
       `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/presence`,
-      JSON.parse(req.body),
+      req.body,
       { 
         httpsAgent: agent,
         headers: { 'Content-Type': 'application/json' }
