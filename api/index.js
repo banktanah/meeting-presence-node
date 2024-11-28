@@ -63,12 +63,12 @@ app.get('/meeting/members/:meeting_id', (req, res) => {
 });
 
 app.post('/meeting/presence', (req, res) => {
-  console.log('req.param', req.params);
+  console.log('req.body', req.body);
 
   axios
     .post(
       `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/presence`,
-      req.params,
+      JSON.parse(req.body),
       { 
         httpsAgent: agent,
         headers: { 'Content-Type': 'application/json' }
