@@ -21,7 +21,7 @@ app.get('/meeting/list', (req, res) => {
   console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
 
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/list`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/list`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
