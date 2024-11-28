@@ -63,6 +63,8 @@ app.get('/meeting/members/:meeting_id', (req, res) => {
 });
 
 app.post('/meeting/presence', (req, res) => {
+  console.log('req.param', req.params);
+
   axios
     .post(
       `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/presence`,
