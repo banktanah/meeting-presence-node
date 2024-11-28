@@ -19,7 +19,7 @@ app.get('/', (req, res) => {
 // Meeting list route
 app.get('/meeting/list', (req, res) => {
   axios
-    .get('http://localhost/meeting-presence/api/meeting/members/M2411170001', { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/M2411170001`, { httpsAgent: agent })
     .then((response) => {
       res.json(response.data);
     })
@@ -35,7 +35,7 @@ app.post('/meeting/members/:meeting_id', (req, res) => {
   console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
 
   axios
-    .get(`https://10.254.42.59/meeting-presence/api/meeting/members/${meeting_id}`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/${meeting_id}`, { httpsAgent: agent })
     .then((response) => {
       res.json(response.data);
     })
