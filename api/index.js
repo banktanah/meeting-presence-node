@@ -65,7 +65,7 @@ app.get('/meeting/members/:meeting_id', (req, res) => {
 app.post('/meeting/presence', (req, res) => {
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/${meeting_id}`,
+      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/presence`,
       JSON.stringify(req.params),
       { 
         httpsAgent: agent,
