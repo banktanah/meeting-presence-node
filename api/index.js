@@ -7,6 +7,25 @@ const axios = require('axios');
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
+app.use((req, res, next) => {
+  const allowedOrigins = [
+    'http://localhost:9393', 
+    'https://meeting-presence-fe-bt-v1.vercel.app'
+  ];
+
+  const origin = req.headers.origin;
+  if(allowedOrigins.includes(origin)) {
+    res.setHeader('Access-Control-Allow-Origin', origin);
+  }
+
+  //res.header('Access-Control-Allow-Origin', 'http://127.0.0.1:8020');
+  res.header('Access-Control-Allow-Methods', 'GET, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+  res.header('Access-Control-Allow-Credentials', true);
+
+  return next();
+});
+
 const agent = new https.Agent({
   rejectUnauthorized: false,
 });
@@ -26,6 +45,7 @@ app.get('/master/room', (req, res) => {
     .get(`${process.env.HOST_BACKEND}/meeting-presence/api/master/room`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
+      res.setHeader("Access-Control-Allow-Origin", "*");
       res.json(response.data);
     })
     .catch((error) => {
