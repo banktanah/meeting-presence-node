@@ -63,7 +63,7 @@ app.get('/meeting/members/:meeting_id', (req, res) => {
 });
 
 app.post('/meeting/presence', (req, res) => {
-  console.log('req.body', req.body);
+  // console.log('req.body', req.body);
 
   axios
     .post(
@@ -74,6 +74,42 @@ app.post('/meeting/presence', (req, res) => {
         headers: { 'Content-Type': 'application/json' }
       }
     )
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+app.post('/meeting/add', (req, res) => {
+  // console.log('req.body', req.body);
+  axios
+    .post(
+      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/add`,
+      req.body,
+      { 
+        httpsAgent: agent,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+app.get('/dashboard/listpegawai', (req, res) => {
+  const { meeting_id } = req.params;
+
+  axios
+    .get(`${process.env.HOST_DASHBOARD}/dashboard/services/apps/mawas/listpegawai`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
