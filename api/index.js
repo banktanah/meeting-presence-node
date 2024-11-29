@@ -17,7 +17,7 @@ app.use((req, res, next) => {
 
   if(process.env.HOST_CORS_WHITELIST){
     allowedOrigins = process.env.HOST_CORS_WHITELIST.split(',');
-    allowedOrigins = allowedOrigins.map(a => a.trim);
+    allowedOrigins = allowedOrigins.map(a => a.trim());
   }
 
   console.log('allowedOrigins', allowedOrigins);
