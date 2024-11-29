@@ -8,10 +8,17 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 app.use((req, res, next) => {
-  const allowedOrigins = [
-    'http://localhost:9393', 
-    'https://meeting-presence-fe-bt-v1.vercel.app'
-  ];
+  // const allowedOrigins = [
+  //   'http://localhost:9393', 
+  //   'https://meeting-presence-fe-bt-v1.vercel.app'
+  // ];
+
+  let allowedOrigins = [];
+
+  if(process.env.HOST_CORS_WHITELIST){
+    allowedOrigins = process.env.HOST_CORS_WHITELIST.split(',');
+    allowedOrigins = allowedOrigins.map(a => a.trim);
+  }
 
   const origin = req.headers.origin;
   if(allowedOrigins.includes(origin)) {
