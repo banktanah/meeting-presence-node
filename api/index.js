@@ -233,6 +233,42 @@ app.post('/meeting/update', (req, res) => {
     });
 });
 
+app.post('/meeting/register-face', (req, res) => {
+  // console.log('req.body', req.body);
+  axios
+    .post(
+      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/register-face`,
+      req.body,
+      { 
+        httpsAgent: agent,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+app.get('/meeting/get-faces/:meeting_id_or_code', (req, res) => {
+  const { meeting_id_or_code } = req.params;
+
+  axios
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get-faces/${meeting_id_or_code}`, { httpsAgent: agent })
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
 /**
  * meeting-member
  */
