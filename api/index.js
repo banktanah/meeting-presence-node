@@ -349,6 +349,22 @@ app.post('/meeting-member/update', (req, res) => {
 });
 
 /**
+ * face
+ */
+app.get('/face/listpegawai', (req, res) => {
+  axios
+    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/face/listpegawai`, { httpsAgent: agent })
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
+
+/**
  * dashboard
  */
 app.get('/dashboard/listpegawai', (req, res) => {
