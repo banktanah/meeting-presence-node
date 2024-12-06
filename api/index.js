@@ -363,6 +363,26 @@ app.get('/face/listpegawai', (req, res) => {
       res.status(500).send('Error fetching data');
     });
 });
+app.post('/face/get-base64-photos', (req, res) => {
+  // console.log('req.body', req.body);
+  axios
+    .post(
+      `${process.env.HOST_BACKEND}/meeting-presence/api/face/get-base64-photos`,
+      req.body,
+      { 
+        httpsAgent: agent,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
+    .then((response) => {
+      res.setHeader('Content-Type', 'application/json');
+      res.json(response.data);
+    })
+    .catch((error) => {
+      console.error('Error fetching data', error);
+      res.status(500).send('Error fetching data');
+    });
+});
 
 /**
  * dashboard
