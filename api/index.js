@@ -254,7 +254,7 @@ app.post('/meeting/register-face', (req, res) => {
     });
 });
 
-app.get('/meeting/get-faces', (req, res) => {
+app.post('/meeting/get-faces', (req, res) => {
   const { meeting_id_or_code } = req.params;
     
   axios
