@@ -254,11 +254,18 @@ app.post('/meeting/register-face', (req, res) => {
     });
 });
 
-app.get('/meeting/get-faces/:meeting_id_or_code', (req, res) => {
+app.get('/meeting/get-faces', (req, res) => {
   const { meeting_id_or_code } = req.params;
-
+    
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get-faces/${meeting_id_or_code}`, { httpsAgent: agent })
+    .post(
+      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get-faces`,
+      req.body,
+      { 
+        httpsAgent: agent,
+        headers: { 'Content-Type': 'application/json' }
+      }
+    )
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
