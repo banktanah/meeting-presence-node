@@ -208,7 +208,7 @@ app.post('/meeting/add-document', (req, res) => {
     })
     .catch((error) => {
       console.error('Error fetching data', error);
-      res.status(500).send('Error fetching data');
+      res.status(500).send('Error fetching data: '+error);
     });
 });
 
