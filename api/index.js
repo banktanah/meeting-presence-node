@@ -54,7 +54,7 @@ app.get('/master/room', (req, res) => {
   console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
 
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/master/room`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/master/room`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.setHeader("Access-Control-Allow-Origin", "*");
@@ -68,7 +68,7 @@ app.get('/master/room', (req, res) => {
 
 app.get('/master/meeting-type', (req, res) => {
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/master/meeting-type`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/master/meeting-type`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -86,7 +86,7 @@ app.get('/meeting/list', (req, res) => {
   console.log('process.env.HOST_BACKEND', process.env.HOST_BACKEND);
 
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/list`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/meeting/list`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -96,12 +96,12 @@ app.get('/meeting/list', (req, res) => {
       res.status(500).send('Error fetching data');
     });
 });
-
+ n
 app.get('/meeting/get/:meeting_id_or_code', (req, res) => {
   const { meeting_id_or_code } = req.params;
 
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get/${meeting_id_or_code}`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/meeting/get/${meeting_id_or_code}`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -116,7 +116,7 @@ app.get('/meeting/members/:meeting_id', (req, res) => {
   const { meeting_id } = req.params;
 
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/members/${meeting_id}`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/meeting/members/${meeting_id}`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -132,7 +132,7 @@ app.post('/meeting/presence', (req, res) => {
 
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/presence`,
+      `${process.env.HOST_BACKEND}/api/meeting/presence`,
       req.body,
       { 
         httpsAgent: agent,
@@ -153,7 +153,7 @@ app.post('/meeting/add', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/add`,
+      `${process.env.HOST_BACKEND}/api/meeting/add`,
       req.body,
       { 
         httpsAgent: agent,
@@ -174,7 +174,7 @@ app.post('/meeting/delete', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/delete`,
+      `${process.env.HOST_BACKEND}/api/meeting/delete`,
       req.body,
       { 
         httpsAgent: agent,
@@ -195,7 +195,7 @@ app.post('/meeting/add-document', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/add-document`,
+      `${process.env.HOST_BACKEND}/api/meeting/add-document`,
       req.body,
       { 
         httpsAgent: agent,
@@ -216,7 +216,7 @@ app.post('/meeting/update', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/update`,
+      `${process.env.HOST_BACKEND}/api/meeting/update`,
       req.body,
       { 
         httpsAgent: agent,
@@ -237,7 +237,7 @@ app.post('/meeting/register-face', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/register-face`,
+      `${process.env.HOST_BACKEND}/api/meeting/register-face`,
       req.body,
       { 
         httpsAgent: agent,
@@ -259,7 +259,7 @@ app.post('/meeting/get-faces', (req, res) => {
     
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get-faces`,
+      `${process.env.HOST_BACKEND}/api/meeting/get-faces`,
       req.body,
       { 
         httpsAgent: agent,
@@ -280,7 +280,7 @@ app.get('/meeting/get-all-faces', (req, res) => {
   const { meeting_id_or_code } = req.params;
 
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting/get-all-faces`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/meeting/get-all-faces`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -296,7 +296,7 @@ app.get('/meeting/get-all-faces', (req, res) => {
  */
 app.get('/meeting-member/detail/:meeting_member_id', (req, res) => {
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/meeting-member/detail/${req.params.meeting_member_id}`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/meeting-member/detail/${req.params.meeting_member_id}`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -311,7 +311,7 @@ app.post('/meeting-member/add', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting-member/add`,
+      `${process.env.HOST_BACKEND}/api/meeting-member/add`,
       req.body,
       { 
         httpsAgent: agent,
@@ -332,7 +332,7 @@ app.post('/meeting-member/delete', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting-member/delete`,
+      `${process.env.HOST_BACKEND}/api/meeting-member/delete`,
       req.body,
       { 
         httpsAgent: agent,
@@ -353,7 +353,7 @@ app.post('/meeting-member/update', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/meeting-member/update`,
+      `${process.env.HOST_BACKEND}/api/meeting-member/update`,
       req.body,
       { 
         httpsAgent: agent,
@@ -375,7 +375,7 @@ app.post('/meeting-member/update', (req, res) => {
  */
 app.get('/face/listpegawai', (req, res) => {
   axios
-    .get(`${process.env.HOST_BACKEND}/meeting-presence/api/face/listpegawai`, { httpsAgent: agent })
+    .get(`${process.env.HOST_BACKEND}/api/face/listpegawai`, { httpsAgent: agent })
     .then((response) => {
       res.setHeader('Content-Type', 'application/json');
       res.json(response.data);
@@ -389,7 +389,7 @@ app.post('/face/get-base64-photos', (req, res) => {
   // console.log('req.body', req.body);
   axios
     .post(
-      `${process.env.HOST_BACKEND}/meeting-presence/api/face/get-base64-photos`,
+      `${process.env.HOST_BACKEND}/api/face/get-base64-photos`,
       req.body,
       { 
         httpsAgent: agent,
