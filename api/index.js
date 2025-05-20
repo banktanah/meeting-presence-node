@@ -96,7 +96,7 @@ app.get('/meeting/list', (req, res) => {
       res.status(500).send('Error fetching data');
     });
 });
- n
+
 app.get('/meeting/get/:meeting_id_or_code', (req, res) => {
   const { meeting_id_or_code } = req.params;
 
